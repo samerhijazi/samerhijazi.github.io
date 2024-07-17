@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Splitter</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body>
+    <h1>Email Splitter</h1>
+    <textarea id="emailInput" rows="4" cols="50" placeholder="Enter emails separated by semicolons (;)"></textarea><br><br>
+    <button onclick="listEmails()">Split Emails</button>    
+    <button onclick="resetContent()">Reset</button>
+    <button onclick="copyOutput()">Copy Output</button>
+    <span id="copyStatus" class="status-indicator"></span>
+    <div id="output"></div>
+
+    <script>        
+        function resetContent() {
+            document.getElementById('emailInput').value = '';
+            document.getElementById('output').textContent = '';
+            document.getElementById('copyStatus').style.backgroundColor = 'red';
+        }
+        function listEmails() {
+            const emailInput = document.getElementById('emailInput').value;
+            const regex = /<([^>]+)>/g;
+            let match;
+            let emails = [];
+            while ((match = regex.exec(emailInput)) !== null) {
+                emails.push(match[1].toLowerCase());
+            }
+            emails.sort();
+            const output = emails.join('\n');
+            document.getElementById('output').textContent = output;
+        }
+        function copyOutput() {
+            const output = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(output).then(() => {
+                document.getElementById('copyStatus').style.backgroundColor = 'green';
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }       
+    </script>
+</body>
+</html>
