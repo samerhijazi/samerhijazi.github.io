@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Germany to India Time Converter</title>
+</head>
+<body>
+    <h2>Germany to India Time Converter</h2>
+    <label for="germanyTime">Enter time in Germany (24-hour format):</label>
+    <input type="time" id="germanyTime" />
+    <button onclick="convertTime()">Convert to India Time</button>
+
+    <p id="indiaTime"></p>
+
+    <script>
+        function convertTime() {
+            const germanyTimeInput = document.getElementById("germanyTime").value;
+            if (!germanyTimeInput) {
+                document.getElementById("indiaTime").innerText = "Please enter a time.";
+                return;
+            }
+
+            // Parse Germany time and add 4.5 hours for India
+            const [hour, minute] = germanyTimeInput.split(":").map(Number);
+            let indiaHour = hour + 4;
+            let indiaMinute = minute + 30;
+
+            if (indiaMinute >= 60) {
+                indiaMinute -= 60;
+                indiaHour += 1;
+            }
+            if (indiaHour >= 24) {
+                indiaHour -= 24;
+            }
+
+            const indiaTimeFormatted = `${indiaHour.toString().padStart(2, '0')}:${indiaMinute.toString().padStart(2, '0')}`;
+            document.getElementById("indiaTime").innerText = `Time in India: ${indiaTimeFormatted}`;
+        }
+    </script>
+</body>
+</html>

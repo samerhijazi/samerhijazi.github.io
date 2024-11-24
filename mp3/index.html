@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple MP3 Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .song {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .song button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .song button:disabled {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>MP3 Player</h1>
+    <div class="song">
+        <span>Song 1</span>
+        <audio id="audio1" src="song1.mp3"></audio>
+        <div>
+            <button onclick="playAudio('audio1')">Play</button>
+            <button onclick="pauseAudio('audio1')">Pause</button>
+        </div>
+    </div>
+    <div class="song">
+        <span>Song 2</span>
+        <audio id="audio2" src="song2.mp3"></audio>
+        <div>
+            <button onclick="playAudio('audio2')">Play</button>
+            <button onclick="pauseAudio('audio2')">Pause</button>
+        </div>
+    </div>
+    <div class="song">
+        <span>Song 3</span>
+        <audio id="audio3" src="song3.mp3"></audio>
+        <div>
+            <button onclick="playAudio('audio3')">Play</button>
+            <button onclick="pauseAudio('audio3')">Pause</button>
+        </div>
+    </div>
+
+    <script>
+        function playAudio(id) {
+            document.getElementById(id).play();
+        }
+
+        function pauseAudio(id) {
+            document.getElementById(id).pause();
+        }
+    </script>
+</body>
+</html>

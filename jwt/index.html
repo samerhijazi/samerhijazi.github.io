@@ -15,6 +15,9 @@
         <button onclick="decodeJWT()">Decode JWT</button>
         <button onclick="resetInput()">Reset</button>
         <pre id="jwtOutput"></pre>
+        <input type="number" id="timestamp" placeholder="Enter Unix timestamp">
+        <button onclick="decodeTimestamp()">Decode Time</button>
+        <div class="time" id="result">Decoded Date & Time (German Time):</div>
     </div>
     <script src="jwt-decode.min.js"></script>
     <script src="script.js"></script>

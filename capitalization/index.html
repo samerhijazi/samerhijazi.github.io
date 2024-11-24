@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Capitalization Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            cursor: pointer;
+        }
+        .buttons {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Text Capitalization Tool</h1>
+
+    <textarea id="text-input" placeholder="Enter your text here..."></textarea>
+
+    <div class="buttons">
+        <button onclick="convertToUpper()">Uppercase</button>
+        <button onclick="convertToLower()">Lowercase</button>
+        <button onclick="convertToTitle()">Title Case</button>
+        <button onclick="convertToSentence()">Sentence Case</button>
+        <button onclick="resetText()">Reset</button>
+    </div>
+
+    <script>
+        function convertToUpper() {
+            const text = document.getElementById('text-input').value;
+            document.getElementById('text-input').value = text.toUpperCase();
+        }
+
+        function convertToLower() {
+            const text = document.getElementById('text-input').value;
+            document.getElementById('text-input').value = text.toLowerCase();
+        }
+
+        function convertToTitle() {
+            const text = document.getElementById('text-input').value;
+            const titleCaseText = text.toLowerCase().split(' ').map(word => 
+                word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            document.getElementById('text-input').value = titleCaseText;
+        }
+
+        function convertToSentence() {
+            const text = document.getElementById('text-input').value.toLowerCase();
+            const sentenceCaseText = text.charAt(0).toUpperCase() + text.slice(1);
+            document.getElementById('text-input').value = sentenceCaseText;
+        }
+
+        function resetText() {
+            document.getElementById('text-input').value = '';
+        }
+    </script>
+
+</body>
+</html>

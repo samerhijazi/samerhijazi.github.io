@@ -1,28 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Splitter</title>
-    <link rel="stylesheet" href="styles.css">
-    
-</head>
-<body>
-    <h1>Email Splitter</h1>
-    <textarea id="emailInput" rows="4" cols="50" placeholder="Enter emails separated by semicolons (;)"></textarea><br><br>
-    <button onclick="listEmails()">Split Emails</button>    
-    <button onclick="resetContent()">Reset</button>
-    <button onclick="copyOutput()">Copy Output</button>
-    <span id="copyStatus" class="status-indicator"></span>
-    <div id="output"></div>
+    <title>Email Cleaner</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
 
-    <script>        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 20px;
+            white-space: pre-wrap background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: red;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        #output {
+            white-space: pre-wrap;
+            /* Preserves white space and line breaks */
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li {
+            margin-right: 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: blue;
+        }
+        /* Adjust the iframe */
+        iframe {
+            border: none;
+            width: 100%;
+            height: 50px;  /* Adjust height as needed */
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- <iframe src="menu.html"></iframe> -->
+    <div class="container">
+        <h1>Email Splitter</h1>
+        <textarea id="emailInput" rows="4" cols="50"
+            placeholder="Enter emails separated by semicolons (;)"></textarea><br><br>
+        <button onclick="SplitEmails()">Split Emails</button>
+        <button onclick="SortEmails()">Sort Emails</button>
+        <button onclick="resetContent()">Reset</button>
+        <button onclick="copyOutput()">Copy Output</button>
+        <span id="copyStatus" class="status-indicator"></span>
+        <div id="output"></div>
+    </div>
+    <script>
+        fetch('menu.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu').innerHTML = data;
+            });
         function resetContent() {
             document.getElementById('emailInput').value = '';
             document.getElementById('output').textContent = '';
             document.getElementById('copyStatus').style.backgroundColor = 'red';
         }
-        function listEmails() {
+        function SortEmails() {
+            // Get the input value (emails entered by the user)
+            let emailInput = document.getElementById('emailInput').value;
+
+            // Split emails by commas, new lines, or spaces, and filter out any empty entries
+            let emails = emailInput.split(/[\s,]+/).filter(email => email.trim() !== '');
+
+            // Step 1: Convert all emails to lowercase to handle case-insensitive duplicates
+            emails = emails.map(email => email.toLowerCase());
+
+            // Step 2: Remove duplicates
+            let uniqueEmails = emails.filter((email, index) => {
+                return emails.indexOf(email) === index;
+            });
+
+            // Step 3: Sort emails alphabetically
+            uniqueEmails.sort();
+            const output = uniqueEmails.join('\n');
+
+            // Display the result in the result area
+            //document.getElementById('output').innerHTML = uniqueEmails.join('<br>');
+            document.getElementById('output').textContent = output;
+
+        }
+        function SplitEmails() {
             const emailInput = document.getElementById('emailInput').value;
             const regex = /<([^>]+)>/g;
             let match;
@@ -44,4 +148,5 @@
         }       
     </script>
 </body>
+
 </html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEM Certificate Decoder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/node-forge/0.10.0/forge.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+        textarea { width: 100%; height: 150px; }
+        button { padding: 10px 20px; margin-top: 10px; }
+        #result { white-space: pre-wrap; background: #f4f4f4; padding: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>PEM Certificate Decoder</h1>
+    <p>Paste your PEM certificate below and click "Decode" to see the certificate details.</p>
+
+    <textarea id="pemInput" placeholder="Paste your PEM certificate here..."></textarea>
+    <button onclick="decodePEM()">Decode</button>
+
+    <h2>Decoded Certificate Details:</h2>
+    <div id="result"></div>
+
+    <script>
+        function decodePEM() {
+            const pem = document.getElementById("pemInput").value;
+            const resultDiv = document.getElementById("result");
+
+            try {
+                // Convert PEM to certificate object
+                const cert = forge.pki.certificateFromPem(pem);
+                
+                // Extract certificate details
+                const details = {
+                    subject: cert.subject.attributes.map(attr => `${attr.name}: ${attr.value}`).join(', '),
+                    issuer: cert.issuer.attributes.map(attr => `${attr.name}: ${attr.value}`).join(', '),
+                    validFrom: cert.validity.notBefore,
+                    validTo: cert.validity.notAfter,
+                    serialNumber: cert.serialNumber
+                };
+
+                // Format the output
+                resultDiv.innerText = 
+                    `Subject: ${details.subject}\n` +
+                    `Issuer: ${details.issuer}\n` +
+                    `Valid From: ${details.validFrom}\n` +
+                    `Valid To: ${details.validTo}\n` +
+                    `Serial Number: ${details.serialNumber}`;
+            } catch (error) {
+                resultDiv.innerText = "Error decoding PEM certificate. Make sure the format is correct.";
+            }
+        }
+    </script>
+
+</body>
+</html>

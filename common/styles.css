@@ -4,30 +4,32 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
     margin: 0;
 }
 
 .container {
+    width: 100%;
     text-align: center;
     background: white;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 700px;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);    
+    max-width: 600px;
 }
 
 textarea {
-    width: 95%;
-    height: 100px;
+    width: 100%;
+    height: 150px;
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
-    border: 5px solid #ddd;
+    border: 1px solid #ddd;
     font-family: monospace;
     resize: none;
 }
+
+
 
 button {
     padding: 10px 20px;
@@ -43,36 +45,16 @@ button:hover {
 }
 
 pre {
-    width: 95%;
-    height: 500px;
+    width: 100%;
+    height: 400px;
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
-    border: 5px solid #ddd;
+    border: 1px solid #ddd;
     font-family: monospace;
     background-color: #f9f9f9;
     overflow: auto;
     white-space: pre-wrap;
     word-wrap: break-word;
     text-align: left;
-}
-
-.json-key {
-    color: brown;
-}
-
-.json-value {
-    color: navy;
-}
-
-.json-string {
-    color: olive;
-}
-
-.time {
-    margin-top: 10px; /* Adds space above the element */
-    background-color: #add8e6; /* Light blue background */
-    padding: 10px; /* Optional: Adds some inner spacing */
-    font-size: 15px;
-    color: #333;
 }

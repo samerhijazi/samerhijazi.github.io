@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unix Timestamp Decoder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Unix Timestamp Decoder</h1>
+    <p>Enter a Unix timestamp to decode it into a readable date and time:</p>
+    <input type="number" id="timestamp" placeholder="Enter Unix timestamp">
+    <button onclick="decodeTimestamp()">Decode</button>
+    <div id="result"></div>
+
+    <script>
+        function decodeTimestamp() {
+            const timestampInput = document.getElementById('timestamp').value;
+            const timestamp = parseInt(timestampInput, 10);
+
+            if (isNaN(timestamp)) {
+                document.getElementById('result').innerHTML = "<span style='color: red;'>Please enter a valid Unix timestamp.</span>";
+                return;
+            }
+
+            // Convert Unix timestamp to a Date object
+            const date = new Date(timestamp * 1000);
+
+            // Format the date and time
+            const formattedDate = date.toLocaleString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit',
+                timeZoneName: 'short' 
+            });
+
+            // Display the result
+            document.getElementById('result').textContent = `Decoded Date & Time: ${formattedDate}`;
+        }
+    </script>
+</body>
+</html>

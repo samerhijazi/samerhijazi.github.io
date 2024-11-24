@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>White-Space Example</title>
+    <style>
+        .normal {
+            white-space: normal;
+        }
+        .pre {
+            white-space: pre;
+        }
+        .pre-wrap {
+            white-space: pre-wrap;
+        }
+        .box {
+            width: 200px;
+            border: 5px solid #ccc;
+            margin: 30px 0;
+            padding: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box normal">
+        <p>This   is     an  example    text.</p>
+    </div>
+    <div class="box pre">
+        <p>This   is     an  example    text.</p>
+    </div>
+    <div class="box pre-wrap">
+        <p>This   is     an  example    text.</p>
+    </div>
+</body>
+</html>
