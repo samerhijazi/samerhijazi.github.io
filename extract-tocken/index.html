@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract Access Token</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #responseInput {
+            width: 100%;
+            height: 100px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+            color: blue;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #copyFeedback {
+            margin-left: 10px;
+            color: green;
+            font-weight: bold;
+            display: none;
+        }
+    </style>
+    <script>
+        // Function to extract the access_token value
+        function extractAccessToken() {
+            // Get the response from the input field
+            const response = document.getElementById("responseInput").value;
+
+            // Parse the response fragment (after '#')
+            const fragment = response.split("#")[1];
+            if (!fragment) {
+                document.getElementById("output").textContent = "Invalid response format!";
+                document.getElementById("copyButton").style.display = "none";
+                document.getElementById("copyFeedback").style.display = "none";
+                return;
+            }
+
+            // Parse the fragment into key-value pairs
+            const params = new URLSearchParams(fragment);
+
+            // Get the access_token
+            const accessToken = params.get("access_token");
+
+            // Display the access_token
+            if (accessToken) {
+                document.getElementById("output").textContent = `Access Token: ${accessToken}`;
+                document.getElementById("copyButton").style.display = "inline-block";
+                document.getElementById("copyButton").dataset.token = accessToken;
+                document.getElementById("copyFeedback").style.display = "none"; // Reset feedback
+            } else {
+                document.getElementById("output").textContent = "Access Token not found!";
+                document.getElementById("copyButton").style.display = "none";
+                document.getElementById("copyFeedback").style.display = "none";
+            }
+        }
+
+        // Function to copy the access_token to clipboard
+        function copyAccessToken(button) {
+            const token = button.dataset.token;
+            navigator.clipboard.writeText(token).then(() => {
+                const feedback = document.getElementById("copyFeedback");
+                feedback.style.display = "inline";
+                feedback.textContent = "Copied!";
+                setTimeout(() => feedback.style.display = "none", 2000); // Hide after 2 seconds
+            }).catch(err => {
+                const feedback = document.getElementById("copyFeedback");
+                feedback.style.display = "inline";
+                feedback.textContent = "Failed to copy!";
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Access Token Extractor</h1>
+    <p>Paste the response URL below to extract the <code>access_token</code>.</p>
+    <textarea id="responseInput" placeholder="Paste the response URL here..."></textarea>
+    <br>
+    <button onclick="extractAccessToken()">Extract Token</button>
+    <button id="copyButton" style="display: none;" onclick="copyAccessToken(this)">Copy Access Token</button>
+    <span id="copyFeedback"></span>
+    <div id="output"></div>
+</body>
+</html>

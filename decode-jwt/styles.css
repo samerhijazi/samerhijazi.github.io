@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+}
+
+textarea {
+    width: 95%;
+    height: 100px;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 5px solid #ddd;
+    font-family: monospace;
+    resize: none;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+pre {
+    width: 95%;
+    height: 500px;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 5px solid #ddd;
+    font-family: monospace;
+    background-color: #f9f9f9;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    text-align: left;
+}
+
+.json-key {
+    color: brown;
+}
+
+.json-value {
+    color: navy;
+}
+
+.json-string {
+    color: olive;
+}
+
+.time {    
+    margin-top: 10px; /* Adds space above the element */
+    background-color: #add8e6; /* Light blue background */
+    padding: 10px; /* Optional: Adds some inner spacing */
+    font-size: 15px;
+    color: #333;
+}
+
+.timestamp {
+    height: 28px;
+    
+}

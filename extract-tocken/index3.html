@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request and Response</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Send a Request and View the Response</h1>
+    <label for="url">Enter URL:</label>
+    <input type="text" id="url" placeholder="https://example.com/api" size="50">
+    <button id="sendRequest">Send Request</button>
+
+    <div id="response">
+        <h3>Response:</h3>
+        <div id="responseContent">No response yet...</div>
+    </div>
+
+    <script>
+        document.getElementById('sendRequest').addEventListener('click', async () => {
+            const url = document.getElementById('url').value;
+            const responseElement = document.getElementById('responseContent');
+
+            if (!url) {
+                responseElement.textContent = 'Please enter a valid URL.';
+                return;
+            }
+
+            responseElement.textContent = 'Loading...';
+
+            try {
+                const response = await fetch(url);
+                const data = await response.text();
+
+                // Check if the response is a URL
+                if (data.startsWith('http://') || data.startsWith('https://')) {
+                    responseElement.innerHTML = `<a href="${data}" target="_blank">${data}</a>`;
+                } else {
+                    responseElement.textContent = data;
+                }
+            } catch (error) {
+                responseElement.textContent = 'Error: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html>

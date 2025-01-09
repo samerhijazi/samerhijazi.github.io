@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request and Redirect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Send a Request, Redirect, and Show New Location</h1>
+    <label for="url">Enter URL:</label>
+    <input type="text" id="url" placeholder="https://example.com/api" size="50">
+    <button id="sendRequest">Send Request</button>
+
+    <div id="response">
+        <h3>Response:</h3>
+        <div id="responseContent">No response yet...</div>
+    </div>
+    <div id="newLocation">
+        <h3>New Location:</h3>
+        <div id="locationContent">Not redirected yet...</div>
+    </div>
+
+    <script>
+        document.getElementById('sendRequest').addEventListener('click', async () => {
+            const url = document.getElementById('url').value;
+            const responseElement = document.getElementById('responseContent');
+            const locationElement = document.getElementById('locationContent');
+
+            if (!url) {
+                responseElement.textContent = 'Please enter a valid URL.';
+                return;
+            }
+
+            responseElement.textContent = 'Loading...';
+            locationElement.textContent = 'Not redirected yet...';
+
+            try {
+                const response = await fetch(url);
+                const data = await response.text();
+
+                // Display the response on the page
+                responseElement.textContent = data;
+
+                // Check if the response is a valid URL
+                if (data.startsWith('http://') || data.startsWith('https://')) {
+                    // Show the new location before redirecting
+                    locationElement.textContent = data;
+
+                    // Redirect the browser to the URL
+                    //window.location.href = data;
+                }
+            } catch (error) {
+                responseElement.textContent = 'Error: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
